@@ -1,0 +1,45 @@
+# Core FastAPI
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+
+# Database
+sqlalchemy==2.0.43
+asyncpg==0.30.0
+psycopg2-binary==2.9.10
+alembic==1.16.4
+greenlet==3.2.4
+
+# Validation & Settings
+pydantic==2.11.7
+pydantic-settings==2.10.1
+python-dotenv==1.1.1
+email-validator==2.2.0
+
+# Authentication & Security
+python-jose[cryptography]==3.5.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.2.1
+python-multipart==0.0.20
+
+# Redis / Background Tasks
+redis==6.2.0
+celery==5.5.3
+
+# HTTP Client
+httpx==0.28.1
+
+# Testing
+pytest==8.4.1
+pytest-asyncio==1.1.0
+pytest-cov==6.2.1
+
+# Development Tools
+black==25.1.0
+ruff==0.12.8
+mypy==1.17.1
+
+# Monitoring / Logging
+sentry-sdk==2.34.1
+
+# ASGI Utilities
+anyio==4.10.0
