@@ -1,8 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
-from config import settings 
-
+from app.core.config import settings 
 
 
 engine = create_engine(
@@ -16,5 +15,3 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 class Base(DeclarativeBase):
     pass
 
-
-Base.metadata.create_all(bind=engine)
