@@ -1,12 +1,13 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
+from uuid import UUID
 
 from app.models.shopping_list import ShoppingList
 from app.models.user import User
 from app.core.dependencies import get_current_user, get_db
 from app.repositories.list_repository import ListRepository
 
-from app.schemas.shopping_list import ShoppingListCreate
+from app.schemas.shopping_list import ShoppingListCreate, ShoppingListUpdate
 
 
 
@@ -23,14 +24,14 @@ async def create_shopping_list(list_data: ShoppingListCreate, user: User = Depen
     return ListRepository.create_shopping_list(db, list_data, user)
 
 @router.get("/{list_id}")
-async def get_shopping_list(list_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+async def get_shopping_list(list_id: UUID, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return ListRepository.get_shopping_list_by_id(db, list_id, user)
 
 @router.patch("/{list_id}")
-async def update_shopping_list(list_id: int):
+async def update_shopping_list(list_id: UUID, list_data: ShoppingListUpdate, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     pass
         #update the shopping list with the given id for the user
 
 @router.delete("/{list_id}")
-async def delete_shopping_list(list_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+async def delete_shopping_list(list_id: UUID, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return ListRepository.delete_shopping_list(db, list_id, user)
