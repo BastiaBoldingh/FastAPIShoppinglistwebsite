@@ -1,4 +1,10 @@
 import fastapi
+from fastapi import Depends
+from sqlalchemy.orm import Session
+
+from app.core.dependencies import get_db, get_current_user
+from app.models.user import User
+
 
 
 router = fastapi.APIRouter(tags=["shopping_items"])
