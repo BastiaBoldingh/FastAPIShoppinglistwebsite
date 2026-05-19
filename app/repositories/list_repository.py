@@ -29,3 +29,14 @@ class ListRepository:
     @staticmethod
     def get_shopping_list_by_id(db: Session, list_id: int, user: User = Depends(get_current_user)):
         return db.query(ShoppingList).filter(ShoppingList.id == list_id, ShoppingList.owner_id == user.id).first()
+    
+    @staticmethod
+    def delete_shopping_list(db: Session, list_id: int, user: User): 
+        shopping_list = db.query(ShoppingList).filter(ShoppingList.id == list_id, ShoppingList.owner_id == user.id).first()
+        if shopping_list:
+            db.delete(shopping_list)
+            db.commit()
+            return {"message": "Shopping list deleted successfully"}
+        else:
+            return {"message": "Shopping list not found"}
+

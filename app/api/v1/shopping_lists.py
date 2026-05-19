@@ -32,6 +32,5 @@ async def update_shopping_list(list_id: int):
         #update the shopping list with the given id for the user
 
 @router.delete("/{list_id}")
-async def delete_shopping_list(list_id: int):
-    pass
-        #delete the shopping list with the given id for the user
+async def delete_shopping_list(list_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    return ListRepository.delete_shopping_list(db, list_id, user)
