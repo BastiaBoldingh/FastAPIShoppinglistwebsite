@@ -28,9 +28,8 @@ async def get_shopping_list(list_id: UUID, user: User = Depends(get_current_user
     return ListRepository.get_shopping_list_by_id(db, list_id, user)
 
 @router.patch("/{list_id}")
-async def update_shopping_list(list_id: UUID, list_data: ShoppingListUpdate, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    pass
-        #update the shopping list with the given id for the user
+async def update_shopping_list(list_id: UUID, updated_list_data: ShoppingListUpdate, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    return ListRepository.update_shopping_list(db, list_id, updated_list_data, user)
 
 @router.delete("/{list_id}")
 async def delete_shopping_list(list_id: UUID, user: User = Depends(get_current_user), db: Session = Depends(get_db)):

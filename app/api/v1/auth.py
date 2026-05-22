@@ -15,11 +15,9 @@ router = APIRouter(prefix="/auth", tags=["authentication"])
 @router.post("/register")
 async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     existing_user = UserRepository.get_user_by_email(db, user.email)
-    if not existing_user:
-        existing_user = UserRepository.get_user_by_username(db, user.username)
 
     if existing_user: 
-        raise HTTPException(status_code=400, detail="Email or username already registered")
+        raise HTTPException(status_code=400, detail="Email already registered")
     
     new_user = UserRepository.create_user(db, email=user.email, username=user.username, hashed_password=generate_password_hash(user.password))
     

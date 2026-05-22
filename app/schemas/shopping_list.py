@@ -8,3 +8,4 @@ class ShoppingListCreate(BaseModel):
 class ShoppingListUpdate(BaseModel):
     name: str | None = None
     description: str | None = None
+    storename: str | None = None

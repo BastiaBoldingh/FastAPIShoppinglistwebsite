@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session 
+from sqlalchemy.orm import Session, joinedload
 from fastapi import Depends
 from uuid import UUID
 
@@ -12,7 +12,12 @@ from app.schemas.shopping_list import ShoppingListCreate
 class ListRepository: 
     @staticmethod
     def get_shopping_lists_by_user_id(db: Session, user: User = Depends(get_current_user)):
-        return db.query(ShoppingList).filter(ShoppingList.owner_id == user.id).all()
+        return (
+            db.query(ShoppingList)
+            .options(joinedload(ShoppingList.categories), joinedload(ShoppingList.items))
+            .filter(ShoppingList.owner_id == user.id)
+            .all()
+        )
     
     @staticmethod
     def create_shopping_list(db: Session, list_data: ShoppingListCreate, user: User):
@@ -29,7 +34,12 @@ class ListRepository:
 
     @staticmethod
     def get_shopping_list_by_id(db: Session, list_id: UUID, user: User):
-        return db.query(ShoppingList).filter(ShoppingList.id == list_id, ShoppingList.owner_id == user.id).first()
+        return (
+            db.query(ShoppingList)
+            .options(joinedload(ShoppingList.categories), joinedload(ShoppingList.items))
+            .filter(ShoppingList.id == list_id, ShoppingList.owner_id == user.id)
+            .first()
+        )
     
     @staticmethod
     def delete_shopping_list(db: Session, list_id: UUID, user: User): 
@@ -54,4 +64,5 @@ class ListRepository:
             shopping_list.storename = list_data.storename
         db.commit()
         db.refresh(shopping_list)
+        return shopping_list
 
