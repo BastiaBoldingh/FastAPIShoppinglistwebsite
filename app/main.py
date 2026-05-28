@@ -19,7 +19,3 @@ app.include_router(shopping_lists_router)
 async def root():
     return {"message": "Welcome to the Shopping List API!"}
 
-
-
-
-

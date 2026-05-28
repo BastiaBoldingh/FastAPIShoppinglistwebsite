@@ -1,6 +1,6 @@
 import subprocess
+import sys
 
-if __name__ == "__main__":
-    print("Starting the FastAPI server...")
-    subprocess.run(["uvicorn", "app.main:app", "--reload"])
+print("Starting the FastAPI server...")
+subprocess.run([sys.executable, "-m", "uvicorn", "app.main:app", "--reload"])
 
