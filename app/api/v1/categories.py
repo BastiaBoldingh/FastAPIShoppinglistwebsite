@@ -5,13 +5,14 @@ from sqlalchemy.orm import Session
 from app.core.dependencies import get_current_user, get_db
 from app.models.user import User
 from app.repositories.category_repository import CategoryRepository
+from app.schemas.category import AddCategory
 
 router = APIRouter(prefix="/categories", tags=["categories"])
 
 
 @router.post("/lists/{list_id}/categories")
-async def add_category_to_list(list_id: UUID, category_name: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    created = CategoryRepository.add_category_to_list(db=db, list_id=list_id, name=category_name, user=user)
+async def add_category_to_list(list_id: UUID, category: AddCategory, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    created = CategoryRepository.add_category_to_list(db=db, list_id=list_id, name=category.name, user=user)
     if not created:
         raise HTTPException(status_code=404, detail="List not found or access denied")
     return created

@@ -29,8 +29,8 @@ class ShoppingList(Base):
     updated_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
     categories: Mapped[list["Category"]] = relationship(
-        "Category", back_populates="shopping_list", order_by="Category.sort_order"
+        "Category", back_populates="shopping_list", order_by="Category.sort_order", cascade="all, delete-orphan"
     )
     items: Mapped[list["ShoppingItem"]] = relationship(
-        "ShoppingItem", back_populates="shopping_list"
+        "ShoppingItem", back_populates="shopping_list", cascade="all, delete-orphan"
     )

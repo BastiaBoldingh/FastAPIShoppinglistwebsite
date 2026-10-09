@@ -1,0 +1,59 @@
+1. Fix the app startup and registered routes
+   - Open app/main.py and include the missing API routers for shopping_items and categories.
+   - Confirm the app mounts all required endpoints before testing the backend.
+   - This is the first priority because the app currently boots, but key shopping functionality is not exposed.
+
+2. Repair the item repository import and logic errors
+   - In app/repositories/item_repository.py, import UUID and the categorize function correctly.
+   - Fix the add_item_to_list method so it validates list ownership and category ownership properly.
+   - Make sure item creation, update, and delete operations return correct values and handle errors consistently.
+
+3. Fix the category workflow and repository logic
+   - Review app/repositories/category_repository.py and app/api/v1/categories.py.
+   - Ensure category creation, retrieval, and ownership checks work as expected.
+   - Add validation to prevent duplicate or invalid categories in a shopping list.
+
+4. Complete the shopping item endpoints
+   - Implement and test the routes in app/api/v1/shopping_items.py.
+   - Make sure add/update/delete item requests are protected by authentication and only allow access to the owner’s list.
+   - Verify the item endpoints respond with the correct HTTP status codes and error messages.
+
+5. Finish the user profile endpoint
+   - In app/api/v1/users.py, implement the /me PATCH endpoint instead of leaving it as pass.
+   - Add logic to update allowed user fields such as username and maybe email if needed.
+   - Return a proper response and validate ownership/permissions.
+
+6. Review the database relationships and data model consistency
+   - Check user, shopping_list, category, and shopping_item relationships for mismatches.
+   - Verify FK names, relationship names, and list ownership rules are consistent across models and repositories.
+   - Confirm that the tables created by SQLAlchemy match the intended project behavior.
+
+7. Fix security and token validation edge cases
+   - Review app/core/security.py and app/core/dependencies.py.
+   - Confirm refresh token validation, logout behavior, and access-token checks are consistent.
+   - Make sure invalid or expired JWTs produce clear 401 responses.
+
+8. Validate the project against the intended feature list
+   - Compare the current backend to the project plan and identify any missing feature blocks.
+   - Ensure the API supports the expected shopping list flow from create list -> add categories -> add items -> update/delete -> auth.
+   - Fill in any routes or service logic that are still absent.
+
+9. Add real automated tests
+   - Create a test suite under app/tests for auth, lists, categories, and items.
+   - Cover success paths and failure paths, especially unauthorized access and invalid data.
+   - Run the tests and fix any failing behavior before considering the project complete.
+
+10. Run a full project verification pass
+   - Start the app locally and test the main endpoints with real HTTP requests.
+   - Check for 404s, permission issues, and broken database operations.
+   - Verify the backend works end-to-end before calling it finished.
+
+11. Clean up project quality issues
+   - Remove unused imports, fix naming inconsistencies, and correct typos in file names and service names.
+   - Standardize route prefixes and response formats so the API is predictable and maintainable.
+   - Finalize the project so it is ready for further development or handoff.
+
+12. Create a forgot password page. 
+
+13. Add google account authentication. 
+

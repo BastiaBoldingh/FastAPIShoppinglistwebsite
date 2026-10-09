@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from app.api.v1.auth import router as auth_router
 from app.api.v1.users import router as users_router
 from app.api.v1.shopping_lists import router as shopping_lists_router
+from app.api.v1.categories import router as categories_router
+from app.api.v1.shopping_items import router as shopping_items_router
 
 
 
@@ -14,6 +16,8 @@ app = FastAPI(title="Shopping List API", version="1.0")
 app.include_router(auth_router)
 app.include_router(users_router)
 app.include_router(shopping_lists_router)
+app.include_router(shopping_items_router)
+app.include_router(categories_router)
 
 @app.get("/")
 async def root():
