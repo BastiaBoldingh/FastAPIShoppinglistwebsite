@@ -109,6 +109,7 @@ class ItemRepository:
         item.quantity = updated_item_data.quantity
         item.unit = updated_item_data.unit if updated_item_data.unit else None
         item.category_id = updated_item_data.category_id
+
         # optional: update completion status if provided
         if hasattr(updated_item_data, "is_completed"):
             item.is_completed = updated_item_data.is_completed

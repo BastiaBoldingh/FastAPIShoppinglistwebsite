@@ -5,7 +5,7 @@ from uuid import UUID
 from app.core.dependencies import get_db, get_current_user
 from app.models.user import User
 from app.repositories.item_repository import ItemRepository
-from app.schemas.shopping_item import ShoppingItemAdd
+from app.schemas.shopping_item import ShoppingItemAdd, ShoppingItemUpdate
 
 
 router = APIRouter(tags=["shopping_items"])
@@ -20,7 +20,7 @@ async def add_shopping_item(list_id: UUID, item: ShoppingItemAdd, db: Session = 
 
 
 @router.patch("/items/{item_id}")
-async def update_shopping_item(item_id: UUID, updated_item: ShoppingItemAdd, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+async def update_shopping_item(item_id: UUID, updated_item: ShoppingItemUpdate, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     updated = ItemRepository.update_item(db=db, item_id=item_id, updated_item_data=updated_item, user=user)
     if not updated:
         raise HTTPException(status_code=404, detail="Item not found or/or access denied")
